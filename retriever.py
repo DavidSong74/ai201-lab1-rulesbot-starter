@@ -1,6 +1,6 @@
 import chromadb
 from chromadb.utils import embedding_functions
-from config import CHROMA_COLLECTION, CHROMA_PATH, EMBEDDING_MODEL, N_RESULTS
+from config import CHROMA_COLLECTION, CHROMA_PATH, EMBEDDING_MODEL, N_RESULTS, MAX_DISTANCE
 
 # Embedding function and ChromaDB client are initialized once at module load.
 # sentence-transformers downloads the model on first use — this may take
@@ -68,5 +68,31 @@ def retrieve(query, n_results=N_RESULTS):
     if _collection.count() == 0:
         return []
 
-    # Your implementation here.
-    return []
+    results = _collection.query(
+        query_texts=[query],
+        n_results=n_results,
+        include=["documents", "metadatas", "distances"],
+    )
+
+    # query() is batch-capable, so each field is a list-of-lists indexed by
+    # query. We only sent one query, so [0] peels off that outer dimension.
+    # The three lists are parallel — position i describes the same chunk.
+    documents = results["documents"][0]
+    metadatas = results["metadatas"][0]
+    distances = results["distances"][0]
+
+    # Results come back sorted by ascending distance (most to least similar),
+    # so iterating in order preserves the required relevance ordering.
+    chunks = []
+    for text, metadata, distance in zip(documents, metadatas, distances):
+        # Drop weak matches so off-topic questions return [] rather than
+        # forcing an answer from irrelevant context. Threshold tuned in config.
+        if distance > MAX_DISTANCE:
+            continue
+        chunks.append({
+            "text": text,
+            "game": metadata["game"],
+            "distance": distance,
+        })
+
+    return chunks

@@ -1,5 +1,5 @@
 chromadb==1.5.5
 sentence-transformers==3.4.1
-groq==0.15.0
-gradio==5.20.1
+groq==1.4.0
+gradio==5.50.0
 python-dotenv==1.0.1
