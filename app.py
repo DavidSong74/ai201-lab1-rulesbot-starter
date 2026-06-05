@@ -113,16 +113,16 @@ with gr.Blocks(
                                margin:0 0 0.5rem; letter-spacing:0.05em;">
                         📚 LOADED RULE BOOKS
                     </p>
-                    <ul style="font-size:0.85rem; color:#4c1d95; list-style:none;
+                    <ul style="font-size:0.85rem; list-style:none;
                                 padding:0; margin:0; line-height:1.8;">
-                        <li>🏔️ Catan</li>
-                        <li>🔍 Clue</li>
-                        <li>🎯 Codenames</li>
-                        <li>🏦 Monopoly</li>
-                        <li>🦠 Pandemic</li>
-                        <li>🌍 Risk</li>
-                        <li>🚂 Ticket to Ride</li>
-                        <li>🃏 Uno</li>
+                        <li style="color:#4c1d95 !important;">🏔️ Catan</li>
+                        <li style="color:#4c1d95 !important;">🔍 Clue</li>
+                        <li style="color:#4c1d95 !important;">🎯 Codenames</li>
+                        <li style="color:#4c1d95 !important;">🏦 Monopoly</li>
+                        <li style="color:#4c1d95 !important;">🦠 Pandemic</li>
+                        <li style="color:#4c1d95 !important;">🌍 Risk</li>
+                        <li style="color:#4c1d95 !important;">🚂 Ticket to Ride</li>
+                        <li style="color:#4c1d95 !important;">🃏 Uno</li>
                     </ul>
                     <hr style="border:none; border-top:1px solid #ddd6fe; margin:0.75rem 0;">
                     <p style="font-size:0.75rem; color:#7c3aed; margin:0; line-height:1.5;">
