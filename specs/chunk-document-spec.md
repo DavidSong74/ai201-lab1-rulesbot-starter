@@ -116,7 +116,7 @@ handle these cases better, at the cost of more implementation complexity.
 **Actual chunk count produced across all 8 rule books:**
 
 ```
-[your answer here]
+149 chunks stored
 ```
 
 **One thing that surprised you or didn't match your expectations:**
