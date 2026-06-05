@@ -208,7 +208,7 @@ Correctly grounded? Yes — matches the retrieved Catan chunks (no production,
   robber move + steal); no outside facts invented.
 Cited the right game? Yes — opens with "In Catan, ...".
 
-Other tests:
+Other tests (direct pipeline):
 - "What's the weather today?" -> 0 chunks -> fallback string returned with NO
   API call. Lists the 8 supported games.
 - Grounding stress test: "What is the airspeed velocity of an unladen swallow
@@ -216,6 +216,12 @@ Other tests:
   loaded rules don't cover [it]" and named Monopoly instead of inventing an
   answer. Confirms the grounding instruction works even when a (weak) chunk
   is present.
+
+Verified end-to-end through the LIVE Gradio UI (not just direct calls):
+- "What happens when you roll a 7 in Catan?" -> grounded Catan answer
+- "How does the Spymaster give clues in Codenames?" -> grounded Codenames
+  answer (word + number clue), correctly cited
+- "What's the capital of France?" -> fallback message, no hallucination
 ```
 
 **One thing you changed from your original spec after seeing the actual output:**
@@ -229,7 +235,9 @@ they don't answer -> handled by the LLM via the grounding instruction. The
 stress-test query proved case (2) is real and that the system prompt, not a
 hardcoded string, is what catches it.
 
-Also noted: the groq SDK (0.15.0) emits a Pydantic-v1/Python-3.14 compatibility
-UserWarning. It's non-fatal (calls succeed), but worth a version bump later —
-same class of issue as the gradio 5.20->5.50 fix.
+Also noted: the groq SDK (0.15.0) emitted a Pydantic-v1/Python-3.14
+compatibility UserWarning. Non-fatal (calls succeeded), but same class of
+issue as the gradio 5.20->5.50 fix, so I bumped groq 0.15.0 -> 1.4.0. The
+chat.completions.create() API is unchanged across that bump, and the warning
+is now gone.
 ```
